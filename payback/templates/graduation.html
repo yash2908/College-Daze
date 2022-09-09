@@ -1,0 +1,151 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Payback</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href='{% static "payback/css/firstyear/app.css" %}'>
+    <link rel="stylesheet" href='{% static "payback/css/firstyear/shop.css" %}'>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+
+<style>
+    #optShopping .shopping-items .shopping-cart-item .disab {
+        display: none;
+    }
+
+    * {
+        background: url('/static/payback/images/firstyear/images/graduation-texture.jpg');
+    }
+    body{
+        background: none;
+        margin: 0px;
+    }
+    .button{
+        box-shadow: #fff0d2 5px 5px 0;
+    }
+    .button::before{
+        background: #9e2145;
+    }
+</style>
+
+
+<!-- SECOND YEAR   -->
+
+
+<!-- page 1   "opening"  (need to add media queries here :"REMEMBER"  ) ==================== -->
+<div style="padding-top: 200px;padding-bottom: 100px;">
+        
+        <div class="year-text" style="margin-left: 39%;color: #fff0d2;font-size: 2.5rem;line-height: 3.75rem;letter-spacing: .04em;margin-bottom: 50px;">You Made it to </div>
+    <!-- <svg version="1.1" id="Layer_1" style="margin-top: -400px;margin-left:50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="600px" height="600px" viewBox="0 0 530.2 530.2" preserveAspectRatio="xMidYMin slice"><circle class="path" cx="265.1" cy="265.1" r="264.1" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></circle><circle class="line" cx="265.1" cy="265.1" r="264.1"></circle></svg>
+         -->
+         <div  >
+            <img src="{%static 'payback/images/firstyear/images/college-graduation.png' %}" style="max-width: 700px;max-height: 700px;margin-left: 24%;" alt="">
+        </div> 
+        <div class="button mascotPlaceholder" style="display: none;">Continue</div>
+        <div class="button mascotBtn" data-direction="down" data-panel="panel-0"
+            style="display: inline-block; opacity: 1;margin-left: 40%;margin-top: 80px;"
+            onclick="document.getElementById('p2').scrollIntoView(); ">Continue
+        </div>
+        
+</div>
+<!-- page 1 end ================== -->
+
+
+<!-- Page 2 ===================================== -->
+<section class="bck-4" id="p2">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #313d4c;">Congratulations !! .  <br>
+                        You finished your college-graduation .  <br>
+                        Thanks for playing the Game :)  <br>
+
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <!-- <div class="optionWrap left-opt" >
+                <div  class="opt options" onclick="clickOutcome('left', 0, event, this); document.getElementById('p3').scrollIntoView();" data-direction="left" data-outcome="222" data-challenge="28">Take Out More Loans</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="clickOutcome('down', 1, event, this);document.getElementById('p3').scrollIntoView();" data-direction="down" data-outcome="223" data-challenge="28">Talk to the Aid Office</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim svg-anim">
+                    <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+               
+                </div>
+            </div>
+            <div class="optionWrap right-opt" >
+                <div class="opt options" onclick="clickOutcome('right', 2, event, this);document.getElementById('p3').scrollIntoView();" data-direction="right" data-outcome="221" data-challenge="28">Earn More Money</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div> -->
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 2 end ================================ -->
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+
+
+
+
+<script>
+    function scroll_exp(){
+        var scrollPosition = [
+        self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+        self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+        ];
+        var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+        html.data('scroll-position', scrollPosition);
+        html.data('previous-overflow', html.css('overflow'));
+        html.css('overflow', 'hidden');
+        window.scrollTo(scrollPosition[0], scrollPosition[1]);  
+        }
+</script>
+
+<script>
+    window.on('load' , scroll_exp())
+</script>
+
+
+<!-- shop js here -->
+<script src="{% static 'payback/js/firstyear/shop/libraries.js' %}"></script>
+<script src="{% static 'payback/js/firstyear/shop/ap.js' %}"></script>
+<!-- shop js here -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>CAMPUS LA VIE</title>
+    <link rel="stylesheet" href='{% static "crossword_puzzle/Crossword/crossword.css" %}'>
+    <style type="text/css">
+    *{
+        overflow-x: hidden;
+    }
+        p.MsoNormal, li.MsoNormal, div.MsoNormal {
+            margin: 0;
+            margin-bottom: .0001pt;
+            font-size: 12.0pt;
+            font-family: "Times New Roman"
+        }
+
+        h2 {
+            margin-top: 12.0pt;
+            margin-right: 0;
+            margin-bottom: 3.0pt;
+            margin-left: 0;
+            page-break-after: avoid;
+            font-size: 14.0pt;
+            font-family: Arial;
+            font-style: italic
+        }
+
+        a:link, span.MsoHyperlink {
+            color: blue;
+            text-decoration: underline
+        }
+
+        a:visited, span.MsoHyperlinkFollowed {
+            color: purple;
+            text-decoration: underline
+        }
+
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in 1.25in 1.0in 1.25in
+        }
+
+        div.Section1 {
+            page: Section1
+        }
+
+        body {
+            background-color: #fefefe;
+            color: black
+        }
+
+        input.play {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 125%;
+            width: 2em
+        }
+
+        div {
+            text-align: left
+        }
+
+        div table {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var Size = new Number(6);
+        var Moves = new Array();
+        var noGame = 1;
+        var FD;
+        var Board = new function () {
+            this.init = function () {
+                var b;
+                Solve.init();
+                for (var c = 0; c < Size * Size; this.set(c++, 0)) {
+                }
+                for (var c = 0; c < 3 + 3 * FD.selectedIndex; c++) {
+                    Board.clicked(b = Math.floor(Math.random() * Size) + "-" + Math.floor(Math.random() * Size), 1);
+                    Solve.add(b)
+                }
+            };
+            this.clicked = function (b, e) {
+                var a, d;
+                this.change(a = parseInt(b.split("-")[0]), d = parseInt(b.split("-")[1]), e);
+                this.change(a - 1, d, e);
+                this.change(a + 1, d, e);
+                this.change(a, d - 1, e);
+                this.change(a, d + 1, e)
+            };
+            this.change = function (a, d, b) {
+                if (this.check(a, d)) {
+                    this.set(a + Size * d, (parseInt(this.get(a, d)) + b) & 3)
+                }
+            };
+            this.set = function (a, b) {
+                window.document.forms.playForm.elements[a].value = b
+            };
+            this.get = function (a, b) {
+                return (this.check(a, b) ? window.document.forms.playForm.elements[a + Size * b].value : " ")
+            };
+            this.check = function (a, b) {
+                return (a >= 0 && b >= 0 && a < Size && b < Size)
+            }
+        };
+        var Counter = new function () {
+            this.counter = 0;
+            this.counterID = 0;
+            this.set = function (a) {
+                this.stop();
+                this.counter = a;
+                this.show()
+            };
+            this.get = function () {
+                return this.counter
+            };
+            this.show = function () {
+                window.document.forms.CounterForm["Counter"].value = this.counter
+            };
+            this.add = function (a) {
+                if ((this.counter += a) <= 0) {
+                    this.set(0)
+                }
+                this.show()
+            };
+            this.start = function () {
+                this.set(1000);
+                this.counterID = setInterval("Counter.add(-1)", 166)
+            };
+            this.stop = function () {
+                if (this.counterID) {
+                    clearInterval(this.counterID)
+                }
+                this.counterID = 0
+            }
+        };
+        var Solve = new function () {
+            this.solve = new Array();
+            this.solveID = 0;
+            this.init = function () {
+                this.stop();
+                this.solve.length = 0;
+                for (var a = 0; a < 9; window.document.forms.hintForm.elements[a++].value = " ") {
+                }
+            };
+            this.add = function () {
+                for (var a = 0; a < arguments.length; this.solve.push(arguments[a++])) {
+                }
+                this.solve.sort();
+                for (var a = 0; a <= this.solve.length - 4; a++) {
+                    if (this.solve[a] == this.solve[a + 1] && this.solve[a] == this.solve[a + 2] && this.solve[a] == this.solve[a + 3]) {
+                        this.solve.splice(a--, 4)
+                    }
+                }
+                return this.solve.length
+            };
+            this.start = function () {
+                this.solveID = setInterval("Solve.run()", window.document.forms.solveForm.SolveSpeed.options[window.document.forms.solveForm.SolveSpeed.selectedIndex].value)
+            };
+            this.stop = function () {
+                if (this.solveID) {
+                    clearInterval(this.solveID)
+                }
+                this.solveID = 0
+            };
+            this.run = function () {
+                var a;
+                if (a = this.solve.pop()) {
+                    return Board.clicked(a, 3)
+                }
+                this.stop()
+            };
+            this.hint = function () {
+                var b = this.solve[Math.floor(Math.random() * this.solve.length)];
+                var a = parseInt(b.split("-")[0]);
+                var c = parseInt(b.split("-")[1]);
+                window.document.forms.hintForm.elements[0].value = Board.get(a - 1, c - 1);
+                window.document.forms.hintForm.elements[1].value = Board.get(a, c - 1);
+                window.document.forms.hintForm.elements[2].value = Board.get(a + 1, c - 1);
+                window.document.forms.hintForm.elements[3].value = Board.get(a - 1, c);
+                window.document.forms.hintForm.elements[4].value = Board.get(a, c);
+                window.document.forms.hintForm.elements[5].value = Board.get(a + 1, c);
+                window.document.forms.hintForm.elements[6].value = Board.get(a - 1, c + 1);
+                window.document.forms.hintForm.elements[7].value = Board.get(a, c + 1);
+                window.document.forms.hintForm.elements[8].value = Board.get(a + 1, c + 1)
+            }
+        };
+        var Highscores = new function () {
+            this.highscores = new Array();
+            this.init = function () {
+                for (var b = 0; b < FD.length; b++) {
+                    this.highscores[b] = new Array(10);
+                    for (var a = 0; a < 10; this.highscores[b][a++] = 1) {
+                    }
+                }
+            };
+            this.add = function (a) {
+                this.highscores[FD.selectedIndex].push(a);
+                this.highscores[FD.selectedIndex].sort();
+                this.highscores[FD.selectedIndex].reverse();
+                this.highscores[FD.selectedIndex].pop();
+                this.show(a)
+            };
+            this.show = function (c) {
+                for (var b = 0, a = ""; b < 10; a += (b < 9 ? " " : "") + (b + 1) + ": " + this.highscores[FD.selectedIndex][b] + (c == this.highscores[FD.selectedIndex][b++] ? "  <--" : "") + "\n") {
+                }
+                window.document.forms.scoreForm.Scores.value = a
+            }
+        };
+
+        function buttonNew() {
+            Board.init();
+            Moves.length = window.document.forms.clicksForm.Clicks.value = 0;
+            Highscores.show(0);
+            Counter.start();
+            noGame = 0
+        }
+
+        function buttonMove(a) {
+            if (noGame) {
+                return
+            }
+            Board.clicked(a, 3);
+            window.document.forms.clicksForm.Clicks.value = Moves.push(a);
+            if (Solve.add(a, a, a)) {
+                return
+            }
+            noGame = 1;
+            Counter.stop();
+            if ((i = 3 + 3 * FD.selectedIndex - Moves.length) < 0) {
+                Counter.add(7 * i)
+            }
+            Highscores.add(Counter.get())
+        }
+
+        function buttonUndo(a) {
+            if (noGame) {
+                return
+            }
+            Counter.add(-20);
+            while (a-- && (i = Moves.pop())) {
+                Board.clicked(i, 1), Solve.add(i)
+            }
+            window.document.forms.clicksForm.Clicks.value = Moves.length
+        }
+
+        function buttonHint() {
+            if (noGame) {
+                return
+            }
+            Counter.add(-35);
+            Solve.hint()
+        }
+
+        function buttonSolve() {
+            if (noGame) {
+                return
+            }
+            noGame = 1;
+            Counter.set(0);
+            Solve.start()
+        }
+
+        function doOnload() {
+            FD = window.document.forms.settingsForm["Difficulty"];
+            Highscores.init()
+        }
+
+        window.onload = doOnload;
+    </script>
+</head>
+
+<body>
+<div class="header">
+  <a class="logo">
+  <img src="https://technothlon.techniche.org.in/images/technothlon.png" class="img-responsive" style="height: 30px; width:125px; margin: auto; margin-top: 0%; margin-bottom: 2.5%">
+  </a>
+
+    <div>
+        <div class="header-right" id="painting1_final">
+            <a class="active">Rules</a>
+        </div>
+        <div id="painting1_final_modal" class="modal">
+            <div class="modal-content">
+                <span id="painting_close1"  style="cursor: pointer;font-size: 25px;">&times;</span>
+                <div class="modal-body">
+                    <strong>  INSTRUCTIONS: </strong>  <br>
+
+                <strong>  ↠   </strong>   You will be provided with 3 puzzles and a paragraph with some words locked. <br>
+
+                <strong>  ↠   </strong> Each correct answer to the puzzle will unlock few words in the paragraph.    <br>
+
+                <strong>  ↠   </strong> Words will be initially encoded with some pattern and you have to decode the word. <br>
+
+                <strong>  ↠   </strong> An anagram is formed corresponding to each word which have to be filled in the crossword puzzle. <br>   <br> 
+
+                    
+                    <strong>
+                    PUZZLE 1: </strong>  <br> 
+                    <strong>
+                    How to Play: </strong>   <br> 
+
+                    <strong>  ↠   </strong> Click on one of the buttons in the playing field to subtract 1 from that button's value, as well as from the values of the 4 surrounding ones.  <br> 
+
+                    <strong>  ↠   </strong> By clicking on the button, it changes the numbers in all four directions (top, bottom, left and right).  <br>
+
+                    <strong>  ↠   </strong> If the number in one of these directions, is already 0, then it goes back to 3, so you don't want to click on a number if one of those numbers to the left, right, top or bottom is already zero. <br>
+
+                    <strong>  ↠   </strong> Objective: To get all buttons to show '0'. <br>
+                    
+                    <strong>
+                    NOTE: You will get only 5 attempts for Puzzle 2 and Puzzle 3. </strong>   <br>  <br>
+
+                    
+                    <strong>
+                    CROSSWORD: </strong>   <br>  <br>
+
+                    <strong>
+                    INSTRUCTIONS: </strong> <br>
+
+                    <strong>  ↠   </strong> There will be 8 words locked in the paragraph  <br>
+
+                    <strong>  ↠   </strong> Each word will get unlocked by solving the puzzles. <br>
+
+                    <strong>  ↠   </strong> Each word will be encoded by a pattern, you have to figure out the pattern and decode the word. <br>
+
+                    <strong>  ↠   </strong> An example: DPRPPZ decodes to  FUTURE  <br>
+
+                    <strong>  ↠   </strong> After decoding, you have to find the anagram of the same word to fit it in the crossword with the help of hints given in the crossword. <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="full_page">
+    <br>
+    <br>
+<button>1</button>
+<br>
+  <div>
+    <table border="0" cellpadding="0" cellspacing="5">
+        <tr>
+            <td colspan="2">
+                <form name="settingsForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="settingsForm">
+                    <p>Difficulty: <select name="Difficulty" onchange="buttonNew()">
+                        <option selected>
+                            Normal
+                        </option>
+                        
+                    </select>
+                        <!-- <input type="button" value="New" onclick="buttonNew()" title="Start a new game"> -  -->
+                        <button onclick="buttonNew(); puzzleStart();" value="New" class="green"  id="puzzle_start" style="cursor: pointer;">START</button>
+                        <!-- <button onclick="buttonUndo(1);" value="Restart" id="puzzle_restart">Restart</button> -->
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form name="playForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="playForm">
+                    <table border="0" cellpadding="0" cellspacing="0" id="cell">
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-0')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-0')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-0')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-0')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-0')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-0')"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-1')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-1')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-1')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-1')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-1')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-1')"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-2')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-2')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-2')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-2')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-2')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-2')"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-3')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-3')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-3')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-3')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-3')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-3')"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-4')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-4')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-4')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-4')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-4')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-4')"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('0-5')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('1-5')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('2-5')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('3-5')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('4-5')"></td>
+                            <td><input class="play" type="button" value="0" onclick="buttonMove('5-5')"></td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+            <td>
+                <form name="scoreForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="scoreForm">
+                    <p>
+            <textarea name="Scores" rows="11" cols="18" readonly>
+Highscores
+
+since last reload
+
+</textarea></p>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form name="clicksForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="clicksForm">
+                    <p>Clicks used: <input type="text" name="Clicks" value="0" size="3" id="clickused" readonly></p>
+                </form>
+            </td>
+            <td>
+                <form name="CounterForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="CounterForm">
+                    <p>Current score: <input type="text" name="Counter" value="0" size="6" id="score" readonly></p>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form name="hintForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get"
+                      onsubmit="return false;" id="hintForm">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                        </tr>
+                        <tr>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                            <td><input class="play" type="button" value=" "></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <p><input type="button" value="Hint" onclick="buttonHint()"></p>
+                        <button id="puzzle_check" class="green" disabled style="cursor: pointer;">Submit Puzzle</button>
+                    </div>
+                </form>
+            </td>
+            <!-- <td>
+              <form name="solveForm" action="http://www.brainmetrix.com/games/buttonmania.htm" method="get" onsubmit="return false;" id="solveForm">
+                <p>Solve speed: <select name="SolveSpeed">
+                  <option value="500">
+                    Fast
+                  </option>
+                  <option value="900" selected>
+                    Normal
+                  </option>
+                  <option value="1300">
+                    Slow
+                  </option>
+                </select></p>
+                <p><input type="button" value="Solve" onclick="buttonSolve()"></p>
+              </form>
+            </td> -->
+        </tr>
+    </table>
+</div>
+<br>
+<hr>
+<button>2</button>
+<br>
+<br>
+<div class="container">
+    <p> Fifteen Years Back my neighbor Mrs. Sareen had three daughters Sudha, Seema and Reema -- and their combined ages
+        were half of hers. During the next five years Sonny was born and Mrs. Sareen's age equaled the total of her
+        children’s ages. </p>
+    <p>After Some years Kishu was born and then Sudha was as old as Reema and Sonny together. And now, the combined age
+        of all the children is double Mrs. Sareen’s age, which is, as matter of fact, only equal to that of Sudha and
+        Seema together. Sudha’s age is also equal to that of two sons. </p>
+    <p>What is the sum of ages of all of them?</p>
+    <br>
+    <input type="text" id="answer_agesum">
+    <button onclick="agesumcheckAnswer();" class="green">Submit</button>
+
+    <div id="agesum_result"></div>
+
+<br><hr>
+<button>3</button>
+<br>   
+<br> 
+    <p>What is the sum of values of letters in the missing word? (If A-1, B-2, C-3, ... so on) </p>
+    <h5 style="text-align: center;"> ONE OVER SIX MINUS FIFTEEN = DIMS </h5>
+    <h5 style="text-align: center;">EIGHT ADDED TO SEVENTY TWO = _ _ _ _</h5>
+    <br>
+    <input type="text" id="answer_lettersum">
+    <button onclick="lettersumcheckAnswer();" class="green">Submit</button>
+    <div id="lettersum_result"></div>
+</div>
+<br><hr>
+<button>4</button>
+<br>
+<div class="Crossword container">
+    <h3 style="text-align: center;">PARAGRAPH AND THE PATTERN</h3>
+    <div class="pattern">
+        <ol>
+            <li>Alphabets are considered to be in a cyclic manner i.e after z comes a etc.</li>
+            <li>All the letters of the word to be reversed.</li>
+            <li>Each letter corresponding to the new position will be shifted (by the same rank which it stands on) to
+                right of left depending on the number of letters the word possesses.
+            </li>
+            <li>The letters will be shifted to the right if the number of letters in a word are odd and to the left if
+                the number of letters in a word are even.
+            </li>
+            <li>E.g.: consider a word FUTURE, it's reverse is ERUTUF, it contains 6 letters, i.e letters are to left.
+                rank of E-1, R-2, U-3, T-4, U-5, F-6<br>now each letter will be shifted by respective rank they possess.
+                Final encrypted word will be: DPRPPZ
+            </li>
+        </ol>
+    </div>
+    <br>
+    <div class="paragraph">
+        <h5 style="font-weight: bold;">PARAGRAPH AND THE WORD THAT ARE TO BE ENCRYPTED BY ABOVE PATTERN:</h5>
+        <p>The campus of IIT Guwahati is on the northern banks of Brahmaputra and abuts the North Guwahati town of
+            Amingaon. The campus is on a seven hundred acres plot of land around twenty <span style="font-weight: bold"
+                                                                                              id="kilometers">*****</span>
+            from the heart of the city. It has the Brahmaputra on one side and hills and vast open spaces on others. It
+            is often considered as the most beautiful campus in India.<br>
+
+            IIT Guwahati is a prestigious institute of higher learning producing meritorious students with excellent
+            career growth and universal recognition. The students go to get the best of opportunities in the form of
+            highly advanced courses, eminent faculty members, well-equipped laboratories, library, hostels and immense
+            facilities to excel in research and development. The faculty and students are thriving every year to add to
+            the list of bejeweled achievements of the institute in the form of research publications, projects,
+            fellowships and industrial exposure.<br>
+
+
+            IIT Guwahati is a fully residential campus. All the students live in hostels on the campus. The hostels are
+            named after rivers and tributaries of North-East India: Manas, Dihing, Kapili, Siang, Kameng, Barak,
+            Subansiri, Umiam, Dibang, Brahmaputra, Dhansiri, Lohit and Disang. Apart from these, there is a married
+            scholars' hostel for married postgraduates. Every student at IIT Guwahati is given a separate room. Each
+            room comes equipped with requisite basic <span style="font-weight: bold" id="amenities">*****</span>. The
+            toilets and bathrooms are shared. Every hostel has a mess, a canteen, a juice center, a stationary shop, a
+            library, a TV room, an indoor sports room, and laundry facilities. The hostels are provided with nonstop
+            Internet facility. The boy's hostels are single seated.<br>
+
+
+            Every year the students and administration of IIT Guwahati come together to organize a number of festivals
+            and competitions. The major festivals include Alcheringa, the annual cultural festival, Techniche, the
+            annual techno-management festival, Udgam, the annual entrepreneurship summit and Research <span
+                    style="font-weight: bold" id="Conclave">*****</span>. Apart from these the Students of IIT Guwahati
+            participate in the annual Inter IIT Sports Meet. Apart from these the General Championship is widely
+            celebrated across the hostel communities in the institute, the combined score in the inter hostel meets
+            Kriti - Technical, Manthan - Cultural and Spardha - Sports, is used to decide the winning hostel.<br>
+
+
+            Alcheringa, popularly known as "Alcher", is the annual cultural extravaganza of the IIT Guwahati. It started
+            in 1996 as a student-run nonprofit organization catering primarily to the youth of the nation. Held for
+            three days and four nights, Alcheringa's 2018 edition witnessed an estimated footfall of one lakh people.
+            <span style="font-weight: bold" id="Alcheringa">*****</span> has hosted famous Indian and international
+            artists.<br>
+
+            Alcheringa 2018, titled "Echoes of Innocence", the twenty-second edition of the festival starred Bollywood
+            dynamic duo, Vishal-Shekhar, Portuguese House producer, Diego Miranda and Australian House producers, Mashd
+            N Kutcher, alternative rock band from Chennai, The F16's and classical music maestros and brothers, Ganesh
+            and Kumaresh and legendary Padma Shri Awardee Shahid Parvez. Alcheringa 2020 starred Bollywood Singer Jubin
+            Nautiyal and was sponsored by The Red Chief.<br>
+
+            Techniche is the <span style="font-weight: bold" id="techno">*****</span> management festival of IIT
+            Guwahati. Techniche is held in September every year over three days. Techniche hosts various events,
+            competitions, exhibitions and workshops.<br>
+
+            Beginning its journey in two rooms within the Technology Complex of IIT Guwahati, Techniche has grown <span
+                    style="font-weight: bold" id="exponentially">*****</span> over the years, spreading its wings to
+            nearly 50K participants from varied colleges, schools and institutions all across India, UAE, Bangladesh and
+            Singapore. It has been successful in promoting and honing scientific and entrepreneurial skills in academia.<br>
+
+            The symbol of Techniche is two pixelated saplings, orange and blue in color. The saplings are the portrayal
+            of how Techniche <span style="font-weight: bold" id="integrates">*****</span> the youth from all around the
+            country While the blue color stands for the management face, the orange represents the technological front
+            of Techniche.<br>
+
+            Techniche conducts Technothlon and provides students from schools and colleges across India a platform to
+            <span style="font-weight: bold" id="interact">*****</span> with many experts in subject areas through its
+            lecture series. It has been attended by R. Chidambaram, Kiran Bedi, H. C. Verma, Mike Fincke, John C. Mather
+            and others.<br>
+
+            Technothlon, more than just an exam, is a family that binds school students and IIT Guwahati. A family that
+            grows every year multifold. We are overwhelmed to have you aboard. </p>
+    </div>
+
+    <div id="puzzle_container">
+        <table id="puzzle">
+        </table>
+    </div>
+
+    <div id="hints_container">
+        <h3>Vertical</h3>
+        <div id="vertical_hints_container"></div>
+        <h3>Horizontal</h3>
+        <div id="horizontal_hints_container"></div>
+    </div>
+
+    <div id="buttons_container" style="padding-left: 170px;">
+        <button id="clear_all" >Clear All</button>
+    </div>
+</div><br><hr>
+<br>
+
+
+<!-- <div class="row">
+    <div class="col-xs-12" id="painting1_final" style="height:50 px"><img style="width: 150px;height: 150px;position: relative;top: 0%;left: 180%;margin-top: -80px;" 
+            src="/static/mystery_rooms/images/painting1_final.png" class="img-fluid img-thumbnail"></div>
+</div>
+<div id="painting1_final_modal" class="modal">
+    <div class="modal-content">
+        <span id="painting_close1"  style="cursor: pointer;font-size: 25px;">&times;</span>
+        <div class="modal-body">
+            <p>
+                THESE ARE RULES
+            </p>
+
+        </div>
+    </div>
+</div> -->
+
+<!-- <div>
+    <div class="header-right" id="painting1_final">
+        <a class="active">Rules</a>
+    </div>
+    <div id="painting1_final_modal" class="modal">
+        <div class="modal-content">
+            <span id="painting_close1"  style="cursor: pointer;font-size: 25px;">&times;</span>
+            <div class="modal-body">
+                <p>
+                    THESE ARE RULES
+                </p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<script>
+    var modal1 = document.getElementById("painting1_final_modal");
+    var img1 = document.getElementById("painting1_final");
+    // var span1 = document.getElementsByClassName("close")[0];
+    img1.onclick = function () {
+        modal1.style.display = "block";
+
+    }
+    $('#painting_close1').on('click', () => {
+        modal1.style.display = "none";
+    });
+</script>
+
+<div style="position: relative; left: 43%;">
+    <button id="final_submit" class="green"><a href="{% url 'fourthyear' %}">Final Submit</a></button>
+</div>
+<div style="position: relative; left: 45%;margin-top: 3%;">
+    <button id="skip" class="green"><a href="{% url 'fourthyear' %}">Skip</a></button>
+</div>
+
+
+</p>
+<script src='{% static "crossword_puzzle/Crossword/crossword.js" %}'></script>
+</div>
+<footer>
+  
+  <p>Technothlon<br>
+  Copyright &copy 2019-20
+<br>All rights reserved.</p>
+
+  </footer>
+
+</body>
+
+<script type="text/javascript">
+    var encryptedWords = {
+
+        interact: "SAXNZNGA",
+        exponentially: "ZNOENZUMWYAJR",
+        Conclave: "DTXHXHHU",
+        amenities: "TGLXNTLUJ",
+        integrates: "RCQWMAXLEY",
+        techno: "NLEYZN",
+        kilometers: "RPBPZGHDZA",
+        Alcheringa: "ZEKEMYAUCQ"
+    }
+    var is_puzzle_solved = 0;
+    var is_agesum_solved = 0;
+    var is_lettersum_solved = 0;
+    var puzzle_score = 0;
+    var puzzle_click_used = 0;
+    var start_button_clicked = 0;
+    var submittedCrossword = new Array(15);
+
+    function puzzleStart() {
+        console.log("Puzzle Started");
+        $('#puzzle_check').prop('disabled', false);
+        start_button_clicked += 1;
+        console.log(start_button_clicked);
+        if (start_button_clicked == 3) {
+            $('#puzzle_start').prop('disabled', true);
+        }
+    }
+
+    function agesumcheckAnswer() {
+        var agesum_ans = document.getElementById("answer_agesum").value;
+        if (agesum_ans == 117) {
+            document.querySelector("#agesum_result").innerHTML = "<h4>Right Answer. You have unlocked 3 encrypted words in paragraph.</h4>";
+            is_agesum_solved = 1;
+            $('#Alcheringa').text(encryptedWords.Alcheringa);
+            $('#techno').text(encryptedWords.techno);
+            $('#exponentially').text(encryptedWords.exponentially);
+
+        } else {
+            document.querySelector("#agesum_result").innerHTML = "<h4> Try Again </h4>"
+        }
+    }
+
+    function lettersumcheckAnswer() {
+        var lettersum_ans = document.getElementById("answer_lettersum").value;
+        if (lettersum_ans == 56) {
+
+            document.querySelector("#lettersum_result").innerHTML = "<h4>Right Answer. You have unlocked 2 encrypted words in paragraph.</h4>";
+            is_lettersum_solved = 1;
+            $('#integrates').text(encryptedWords.integrates);
+            $('#interact').text(encryptedWords.interact);
+
+        } else {
+            document.querySelector("#lettersum_result").innerHTML = "<h4> Try Again </h4>"
+        }
+    }
+
+    $('#puzzle_check').on('click', () => {
+        // console.log("Puzzle One Saved");
+        let total_input_len = $('#cell').find('.play').length;
+        // console.log(total_input_len);
+        var ct = 0;
+        for (let i = 0; i < total_input_len; i++) {
+            if ($('#cell').find('.play').eq(i).val() == '0') {
+                ct++;
+            }
+        }
+        console.log(ct);
+        if (ct === 36) {
+            is_puzzle_solved = 1;
+            console.log("Puzzle 1 Solved");
+            alert("Puzzle Solved. Move to next Question. You have unlocked 3 encrypted words in paragraph.");
+            $('#kilometers').text(encryptedWords.kilometers);
+            $('#amenities').text(encryptedWords.amenities);
+            $('#Conclave').text(encryptedWords.Conclave);
+            puzzle_score = $('#score').val();
+            puzzle_click_used = $('#clickused').val();
+            console.log(puzzle_score);
+
+        } else {
+            alert("You haven't solved the puzzled yet");
+        }
+    });
+
+    $('#final_submit').on('click', () => {
+        let total_square = $('#puzzle').find('.square').length;
+        console.log($('#puzzle').find('.square').eq(1).text());
+        for (let i = 0; i < 15; i++) {
+            submittedCrossword[i] = new Array(15);
+        }
+        var k = 0;
+        for (let i = 0; i < 15; i++) {
+            for (let j = 0; j < 15; j++) {
+                submittedCrossword[i][j] = $('#puzzle').find('.square').eq(k).text();
+                k++;
+            }
+        }
+        // console.log(submittedCrossword);
+        $.ajax({
+            type: "POST",
+            url: "{%url 'crossword_submission' %}",
+            data: {
+                'submittedCrossword': JSON.stringify(submittedCrossword), 
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                'puzzle_score': puzzle_score,
+                'puzzle_click_used': puzzle_click_used,
+                'is_agesum_solved': is_agesum_solved,
+                'is_lettersum_solved': is_lettersum_solved
+
+            },
+            dataType: 'json',
+            success: function (data) {
+                alert("Your response have been submitted");
+            }
+        });
+    });
+
+</script>
+</html>

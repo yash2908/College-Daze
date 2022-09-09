@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 45">
+  <title>Artboard 3 copy</title>
+  <rect x="13.8" y="17.26" width="0.77" height="22.65" fill="#fff"/>
+  <g>
+    <path d="M14.14,12.81l2.68-2.22a.67.67,0,0,1,.86,1L15.89,13.1h0a2.62,2.62,0,0,0-1,1.79,4.09,4.09,0,0,0,.52,1.86l2,3.15a.67.67,0,0,1-1.13.73l-2.13-3.29L12,20.81a.67.67,0,1,1-1.13-.72L13,16.75a4.77,4.77,0,0,0,.43-1.86,2.67,2.67,0,0,0-.92-1.79h0" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <path d="M14.24,12.81l-2.68-2.22a.67.67,0,0,0-.86,1l1.78,1.48h0a3.18,3.18,0,0,1,.8,1" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <circle cx="14.14" cy="9.94" r="1.24" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <circle cx="10.98" cy="8.35" r="0.63" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <circle cx="17.39" cy="8.35" r="0.63" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <circle cx="15.46" cy="6.63" r="0.63" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+    <circle cx="12.84" cy="6.63" r="0.63" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="0.22"/>
+  </g>
+</svg>

@@ -1,0 +1,72 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tangram</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="{% static 'kenken/js/manipulation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'kenken/js/directions.js' %}"></script>
+    <link href="{% static 'kenken/css/tilesstyle.css' %}" rel="stylesheet">
+    <link href="{% static 'kenken/css/match.css' %}" rel="stylesheet">
+    <link href="{% static 'kenken/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'kenken/css/shapes.css' %}" rel="stylesheet">
+    <link href="{% static 'kenken/css/transform.css' %}" rel="stylesheet">
+    
+  </head>
+  <body>
+    <header>
+      <h1 class="rainbowBackText">Tangram</h1> 
+      
+      <!-- <div id="links">
+        &#8594; <a class="rainbowBackText" href="https://github.com/lindsim/tangrams">Code</a>
+        &#8594; <a class="rainbowBackText" href="https://en.wikipedia.org/wiki/Tangram">Tangram info</a> 
+      </div> -->
+      <nav class="rainbowBackText">
+        <!-- <a class="choices" id="0">blank</a>
+        <a class="choices" id="1">1</a>
+        <a class="choices" id="2">2</a>
+        <a class="choices active" id="3">3</a>
+        <a class="choices" id="4">4</a>
+        <a class="choices" id="5">5</a> -->
+        <a class="choices" id="6" active style="font-size: xx-large;"></a>
+      </nav>
+      <div id ="info"> 
+        Fit all shapes in the outline. &nbsp; &nbsp;
+        &#8592; turn left &nbsp;    
+        &#8594; turn right &nbsp;    
+        &#8593; flip &nbsp;&nbsp;
+        mouse: move & select &nbsp; &nbsp;   
+        space: change color
+        
+      </div>
+    </header>
+    <section id="shapeTray">
+        <div class="shape tri sm purple"></div>
+        <div class="shape tri sm pink" ></div> 
+        <div class="shape square red"></div>
+        <div class="shape par orange clip0 rotate0"></div>
+        <div class="shape tri md yellow"></div>
+        <div class="shape tri lg green"></div>
+        <div class="shape tri lg blue"></div>
+    </section>
+    <main id="matchSpace">
+        <!-- <div id="blank" class="templates"></div>
+        <div id="one" class="templates"></div>
+        <div id="two" class="templates"></div>
+        <div id="three" class="templates"></div>
+        <div id="four" class="templates"></div>
+        <div id="five" class="templates"></div> -->
+        <div id="six" class="templates"></div>
+        <nav class="rainbowBackText">
+          <br>
+          <br>
+          <br>
+          <br>
+          <a href="{% url 'kenken' %}" style="font-size: xx-large;">    SUBMIT!</a>
+        </nav>
+      </main>
+    </body>
+    
+</html>

@@ -1,0 +1,273 @@
+#optShopping {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: absolute;
+}
+
+#optShopping, #optWhackAMole {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+}
+
+#optShopping .shopping-header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+    margin-right: 115px;
+    width: 100%;
+    max-width: 585px;
+}
+
+#optShopping .shopping-header div.text {
+    max-width: 100%;
+    margin-right: 70px;
+}
+
+#optShopping .shopping-header div {
+    font-size: 1.5625rem;
+    line-height: 2.34375rem;
+    letter-spacing: .04em;
+    max-width: 50%;
+    color: #01b6ad;
+}
+
+#optShopping .shopping-header span.image-wrapper {
+    position: relative;
+}
+
+#optShopping .shopping-header span.image-wrapper img {
+    width: 45px;
+    height: 45px;
+}
+
+#optShopping .shopping-header span.image-wrapper.show-count::after {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    right: 8.5px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 23px;
+    background: #01b6ad;
+    color: #fff0d2;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+
+
+#optShopping .shopping-items .shopping-cart-item {
+    cursor: pointer;
+    width: 119px;
+    height: 119px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    color: #01b6ad;
+    text-align: center;
+    position: relative;
+}
+
+#optShopping .shopping-items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 841px;
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+#optShopping .shopping-items .shopping-cart-item {
+    cursor: pointer;
+    width: 119px;
+    height: 119px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    color: #01b6ad;
+    text-align: center;
+    position: relative;
+}
+
+
+#optShopping .shopping-items .shopping-cart-item .card-back, #optShopping .shopping-items .shopping-cart-item .card-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    /* -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; */
+    /* -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg); */
+    -webkit-transition: -webkit-transform .3s;
+    transition: transform .3s;
+}
+
+
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.shopping-cart-image{
+    width: 119px;
+    height: 119px;
+}
+
+#optShopping .shopping-items .shopping-cart-item {
+    cursor: pointer;
+    width: 119px;
+    height: 119px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    color: #01b6ad;
+    text-align: center;
+    position: relative;
+}
+
+#optShopping .shopping-items .shopping-cart-item .card-back {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    background: #01b6ad;
+    /* -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg); */
+    color: #fff0d2;
+}
+
+#optShopping .shopping-items .shopping-cart-item .card-back .text {
+    font-family: antonioregular,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    letter-spacing: .04em;
+    width: 100%;
+    background: #01b6ad;
+    text-transform: uppercase;
+}
+
+#optShopping .shopping-items .shopping-cart-item .card-back .cost {
+    font-family: MaduraiSlab-NorBla,serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+    letter-spacing: .04em;
+    background: #01b6ad;
+}
+
+#optShopping .answers {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+}
+
+.answers {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.options {
+    padding: 10px;
+    margin: 30px 60px;
+    background: #01b6ad;
+    color: #fff0d2;
+    box-shadow: #1e2633 5px 5px 0;
+    display: inline-block;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    transition-property: color;
+    transition-duration: .3s;
+    text-align: center;
+}
+
+.options:before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #1e2633;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-out;
+}
+
+
+
+
+/* ====================    GAME  =============================== */

@@ -1,0 +1,121 @@
+/* template/matching classes */
+.templates {
+    margin-top: 5em;
+    margin-right: auto;
+    margin-left: auto;
+}
+/* variables */
+/* colors */
+/* dimensions */
+/* template/matching divs */
+#one {
+    height: 16em;
+    width: 16em;
+    border: 0.2em dashed black;
+}
+#two {
+    width: 11.2em;
+    height: 22.6em;
+    border: 0.2em dashed black;
+}
+#three {
+    width: 22.6em;
+    height: 22.6em;
+    border: 0.2em dashed black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    position: relative;
+    background: transparent;
+    transform-origin: 0 100%;
+}
+#three:after {
+    content: "";
+    width: 31.9em;
+    border: 0.2em dashed black;
+    position: absolute;
+    background: transparent;
+    transform: rotate(45deg);
+    transform-origin: 0;
+}
+#four {
+    margin-top: 15em;
+    border-bottom: 0.2em dashed black;
+    border-left: 0.2em dashed black;
+    border-right: 0.2em dashed black;
+    height: 5.6em;
+    width: 22.6em;
+    position: relative;
+    background: transparent;
+}
+#four:after {
+    content: "";
+    height: 16em;
+    width: 16em;
+    border-top: 0.2em dashed black;
+    border-left: 0.2em dashed black;
+    position: absolute;
+    background: transparent;
+    transform: rotate(45deg);
+    transform-origin: 19.8em 7.7em;
+}
+#five {
+    border-left: 0.2em dashed black;
+    border-right: 0.2em dashed black;
+    height: 11.2em;
+    width: 22.6em;
+    position: relative;
+    background: transparent;
+}
+#five:after {
+    content: "";
+    border-bottom: 0.2em dashed black;
+    border-right: 0.2em dashed black;
+    height: 16em;
+    width: 16em;
+    position: absolute;
+    background: transparent;
+    transform-origin: 19.5em 8em;
+    transform: rotate(45deg);
+}
+#five:before {
+    content: "";
+    margin-top: 3.5em;
+    margin-left: 9.8em;
+    border-bottom: 0.2em dashed black;
+    border-right: 0.2em dashed black;
+    height: 16em;
+    width: 16em;
+    position: absolute;
+    background: transparent;
+    transform-origin: 5em 0em;
+    transform: rotate(45deg);
+}
+#six {
+    border-top: 0.2em dashed black;
+    border-left: 0.2em dashed black;
+    height: 11.2em;
+    width: 11.2em;
+    background: transparent;
+}
+#six:before {
+    content: "";
+    border-bottom: 0.2em dashed black;
+    border-right: 0.2em dashed black;
+    height: 11.2em;
+    width: 11.2em;
+    position: absolute;
+    background: transparent;
+    margin-left: 5.8em;
+    margin-top: 5.8em;
+}
+#six:after {
+    content: "";
+    border-top: 0.2em dashed black;
+    border-bottom: 0.2em dashed black;
+    height: 16em;
+    width: 7.7em;
+    position: absolute;
+    background: transparent;
+    transform: rotate(45deg);
+    transform-origin: 6em 14em;
+}

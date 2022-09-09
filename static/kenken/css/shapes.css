@@ -1,0 +1,94 @@
+@import 'variables';
+/* shape classes */
+/* dimensions */
+ .shape {
+	 opacity: 1;
+	 z-index: 2;
+	 margin-left: auto;
+	 margin-right: auto;
+	 overflow: hidden;
+}
+ .current {
+	 opacity: 0.7 !important;
+}
+ .par {
+	 width: 11.2em;
+	 height: 5.6em;
+	 clip-path: polygon(50% 0%, 100% 0%, 50% 100%, 0% 100%);
+	 margin-top: 0.25em;
+}
+ .square {
+	 width: 5.6em;
+	 height: 5.6em;
+	 margin-top: 0.25em;
+}
+ .tri {
+	 clip-path: polygon(50% 50%, 0 100%, 100% 100%);
+}
+ .lg {
+	 width: 16em;
+	 height: 16em;
+	 margin-top: -7.75em;
+}
+ .sm {
+	 width: 8em;
+	 height: 8em;
+	 margin-top: -3.75em;
+}
+ .md {
+	 width: 11.2em;
+	 height: 11.2em;
+	 margin-top: -5.35em;
+}
+/* color classes*/
+ .red {
+	 background-color: #f53f00;
+}
+ .orange {
+	 background-color: #ff7518;
+}
+ .blue {
+	 background-color: #2d61a6;
+}
+ .green {
+	 background-color: #4ed9b1;
+}
+ .purple {
+	 background-color: #592da6;
+}
+ .pink {
+	 background-color: #fc69b4;
+}
+ .yellow {
+	 background-color: #ffe135;
+}
+/* shape divs */
+ #square {
+     background-color: #f53f00;
+     /*margin-left: $trihyp - ($medTri * 2);*/
+}
+ #par {
+	 background-color: #ff7518;
+	 margin-left: 4.5em;
+}
+ #lgtri {
+	 border-bottom: 16em solid #2d61a6;
+	 margin-left: 1em;
+	 background-clip: border;
+}
+ #lgtri2 {
+	 border-bottom: 16em solid #4ed9b1;
+	 margin-left: 1em;
+}
+ #smtri {
+	 border-bottom: 8em solid #592da6;
+	 margin-left: 4em;
+}
+ #smtri2 {
+	 border-bottom: 8em solid #fc69b4;
+	 margin-left: 4em;
+}
+ #mdtri {
+	 border-bottom: 11.2em solid #ffe135;
+	 margin-left: 2.6em;
+}

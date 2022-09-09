@@ -1,0 +1,747 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>CAMPUS LA VIE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href='{% static "payback/css/firstyear/app.css" %}'>
+    <link rel="stylesheet" href='{% static "payback/css/firstyear/shop.css" %}'>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+
+<style>
+    #optShopping .shopping-items .shopping-cart-item .disab {
+        display: none;
+    }
+
+    * {
+        background: url('/static/payback/images/firstyear/images/junior-texture.png');
+    }
+    body{
+        background: none;
+        margin: 0px;
+    }
+</style>
+
+<!-- marks footer -->
+<footer style="bottom: 0%;">
+    <div id="footerWrapper">
+        <div class="mobile-display-btn mobile-only" onclick="toggleFooter(event, this)">
+            <div class="fancy-arrow"></div>
+        </div>
+        <div class="barWrapper meter-focus" data-value="{{focus2}}">
+            <div class="tooltip" style="opacity: 0; top: -61px;">
+                <div class="textWrapper">
+                    <div class="text">Focus:</div>
+                    <div class="text">You need to keep up with your classes.</div>
+                </div>
+                <div class="btmTip">
+                    <svg id="tooltip-arrow" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="100%" height="100%" viewBox="0 0 842 349.5">
+                        <polygon class="tooltip-arrow" points="420.5,349.5 842,1.7 842,0 0,0 0,2.6"></polygon>
+                    </svg>
+                </div>
+            </div>
+            <div class="money-tooltip" id="foid" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 0;">
+                <div class="money-value">-</div>
+            </div>
+            <div class="bar bar-1" style="background-color: rgb(1, 157, 149);">
+                <div class="icon">
+                    <svg version="1.1" style="background: none;" id="icon-focus" xmlns="http://www.w3.org/2000/svg"
+                         x="0px" y="0px" width="100%" height="100%" viewBox="0 0 250 250">
+                        <g>
+                            <circle class="icon-focus" cx="109.4" cy="140.6" r="15.6"></circle>
+                            <path class="icon-focus"
+                                  d="M195.3,62.5c-4.3,0-7.8-3.5-7.8-7.8V31.2c0-4.3,3.5-7.8,7.8-7.8s7.8,3.5,7.8,7.8v23.4 C203.1,59,199.6,62.5,195.3,62.5z M218.7,62.5h-23.4c-4.3,0-7.8-3.5-7.8-7.8s3.5-7.8,7.8-7.8h20.2L229,33.4l-5.9-3 c-1.5-0.8-2.7-2-3.5-3.5l-3-5.9l-15.8,15.8c-3.1,3.1-8,3.1-11,0c-3.1-3.1-3.1-8,0-11l23.4-23.4c1.8-1.8,4.2-2.6,6.8-2.2 c2.5,0.4,4.6,2,5.7,4.2l6.6,13.3l13.3,6.6c2.2,1.1,3.8,3.3,4.2,5.7s-0.4,5-2.2,6.8l-23.4,23.4C222.8,61.7,220.8,62.5,218.7,62.5z M109.4,148.4c-2,0-4-0.8-5.5-2.3c-3.1-3.1-3.1-8,0-11l85.9-85.9c3.1-3.1,8-3.1,11,0c3.1,3.1,3.1,8,0,11l-85.9,85.9 C113.4,147.7,111.4,148.4,109.4,148.4z M109.4,187.5c-25.9,0-46.9-21-46.9-46.9s21-46.9,46.9-46.9c12.5,0,24.3,4.9,33.1,13.7 c3.1,3.1,3.1,8,0,11.1c-3.1,3-8,3-11.1,0c-5.9-5.9-13.7-9.2-22.1-9.2c-17.2,0-31.2,14-31.2,31.3s14,31.3,31.2,31.3 s31.2-14,31.2-31.3c0-4.3,3.5-7.8,7.8-7.8s7.8,3.5,7.8,7.8C156.2,166.5,135.2,187.5,109.4,187.5z M109.4,218.7 c-43.1,0-78.1-35-78.1-78.1s35-78.1,78.1-78.1c20.9,0,40.5,8.1,55.2,22.9c3.1,3.1,3.1,8,0,11c-3.1,3.1-8,3.1-11,0 c-11.8-11.8-27.5-18.3-44.2-18.3c-34.5,0-62.5,28-62.5,62.5s28,62.5,62.5,62.5s62.5-28,62.5-62.5c0-7.8-1.5-15.6-4.6-23.2 c-1.6-4,0.3-8.6,4.3-10.2c4-1.6,8.6,0.3,10.2,4.3c3.8,9.4,5.7,19.2,5.7,29C187.5,183.7,152.5,218.7,109.4,218.7z M109.4,250 C49.1,250,0,200.9,0,140.6S49.1,31.2,109.4,31.2c29.2,0,56.7,11.4,77.3,32c3.1,3.1,3.1,8,0,11c-3.1,3.1-8,3.1-11,0 c-17.7-17.7-41.2-27.5-66.3-27.5c-51.7,0-93.7,42.1-93.7,93.8s42.1,93.8,93.7,93.8s93.7-42.1,93.7-93.8c0-15.9-4.1-31.7-12-45.7 c-2.1-3.8-0.8-8.5,3-10.6c3.7-2.1,8.5-0.8,10.6,3c9.2,16.3,14,34.8,14,53.3C218.7,200.9,169.7,250,109.4,250z"></path>
+                        </g>
+                    </svg>
+                    <div class="icon-label value-text mobile-only">FOCUS</div>
+                </div>
+                <div class="value" id="focid" style="background: rgb(1, 182, 173); width: 50%;"></div>
+            </div>
+        </div>
+        <div class="barWrapper meter-connections" data-value="{{connection2}}">
+            <div class="tooltip" style="opacity: 0; top: -61px;">
+                <div class="textWrapper">
+                    <div class="text">Connections:</div>
+                    <div class="text">It's all about who you know.</div>
+                </div>
+                <div class="btmTip">
+                    <svg id="tooltip-arrow" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="100%" height="100%" viewBox="0 0 842 349.5">
+                        <polygon class="tooltip-arrow" points="420.5,349.5 842,1.7 842,0 0,0 0,2.6"></polygon>
+                    </svg>
+                </div>
+            </div>
+            <div class="money-tooltip" id="coid" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 0;">
+                <div class="money-value">+</div>
+            </div>
+            <div class="bar bar-2" style="background-color: rgb(1, 157, 149);">
+                <div class="icon">
+                    <svg id="icon-connection" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px"
+                         y="0px" width="100%" height="100%" viewBox="0 0 223.5 250.2">
+                        <g>
+                            <circle class="icon-connection" cx="110.9" cy="14.3" r="14.2"></circle>
+                            <circle class="icon-connection" cx="43.6" cy="121.5" r="14.2"></circle>
+                            <path class="icon-connection"
+                                  d="M179.9,154.5l30.8-25.6c3.3-2.7,8.2-2.3,10.9,1c2.7,3.3,2.3,8.2-1,10.9l-20.5,17l0.1,0c0,0-11.8,8.9-11.8,20.5 c0,9.8,4.6,18.7,6,21.4l23.5,36.2c2.3,3.6,1.3,8.4-2.3,10.7c-3.6,2.3-8.4,1.3-10.7-2.3l-24.5-37.9l-25.6,40c-1.5,2.3-4,3.6-6.5,3.6 c-1.4,0-2.9-0.4-4.2-1.2c-3.6-2.3-4.7-7.1-2.4-10.7l24.5-38.4c1.2-2.5,5-11.5,5-21.4c0-11.7-11.7-20.5-11.7-20.5l0.1,0 c-28.8-23.5-48.4-58.5-48.4-58.5c-25,45.6-47.7,58.5-47.7,58.5l0.1,0c0,0-11.8,8.9-11.8,20.5c0,9.8,4.6,18.8,6,21.4L81.6,236 c2.3,3.6,1.3,8.4-2.3,10.7c-3.6,2.3-8.4,1.3-10.7-2.3l-24.5-37.9l-25.6,40c-1.5,2.3-4,3.6-6.5,3.6c-1.4,0-2.9-0.4-4.2-1.2 c-3.6-2.3-4.7-7.1-2.4-10.7L30,199.8c1.2-2.5,5-11.5,5-21.4c0-11.7-11.7-20.5-11.7-20.5l0.1,0l-20.5-17c-3.3-2.7-3.7-7.6-1-10.9 c2.7-3.3,7.6-3.7,10.9-1l30.7,25.6c0,0,32-18.9,53.8-61.9c1.2-2.5,5-11.5,5-21.4c0-11.7-11.7-20.5-11.7-20.5l0.1,0l-20.5-17 c-3.3-2.7-3.7-7.6-1-10.9c2.7-3.3,7.6-3.7,10.9-1l30.7,25.5l30.8-25.6c3.3-2.7,8.2-2.3,10.9,1c2.7,3.3,2.3,8.2-1,10.9l-20.5,17 l0.1,0c0,0-11.8,8.9-11.8,20.5c0,9.8,4.6,18.7,6,21.3C125.4,92.5,140.3,125.1,179.9,154.5z"></path>
+                            <circle class="icon-connection" cx="179.9" cy="121.5" r="14.2"></circle>
+                        </g>
+                    </svg>
+                    <div class="icon-label value-text mobile-only">CONNECTIONS</div>
+                </div>
+                <div class="value" id="conid" style="width: 50%; background: rgb(1, 182, 173);"></div>
+            </div>
+        </div>
+        <div class="barWrapper meter-happiness" data-value="{{happiness2}}">
+            <div class="tooltip" style="opacity: 0; top: -61px;">
+                <div class="textWrapper">
+                    <div class="text">Happiness:</div>
+                    <div class="text">All work and no play is no way to live.</div>
+                </div>
+                <div class="btmTip">
+                    <svg id="tooltip-arrow" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="100%" height="100%" viewBox="0 0 842 349.5">
+                        <polygon class="tooltip-arrow" points="420.5,349.5 842,1.7 842,0 0,0 0,2.6"></polygon>
+                    </svg>
+                </div>
+            </div>
+            <div class="money-tooltip" id="haid" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 0;">
+                <div class="money-value">-</div>
+            </div>
+            <div class="bar bar-3" style="background-color: rgb(1, 157, 149);">
+                <div class="icon">
+                    <svg version="1.1" style="background: none;" id="icon-happiness" xmlns="http://www.w3.org/2000/svg"
+                         x="0px" y="0px" width="100%" height="100%" viewBox="0 0 250 250">
+                        <g>
+                            <g>
+                                <path class="icon-happiness"
+                                      d="M125,250C56.1,250,0,193.9,0,125S56.1,0,125,0s125,56.1,125,125S193.9,250,125,250z M125,18.9 C66.5,18.9,18.9,66.5,18.9,125S66.5,231.1,125,231.1S231.1,183.5,231.1,125S183.5,18.9,125,18.9z"></path>
+                            </g>
+                            <g>
+                                <path class="icon-happiness"
+                                      d="M125,191.8c-28.2,0-55.4-19.4-61.7-44.1c-1.3-5.1,1.7-10.2,6.8-11.5c5-1.3,10.2,1.7,11.5,6.8 c4.3,16.5,23.7,30,43.4,30c19.5,0,39.4-13.7,43.4-29.9c1.3-5.1,6.4-8.2,11.4-6.9c5.1,1.3,8.2,6.4,6.9,11.4 C180.6,172.3,153.5,191.8,125,191.8z"></path>
+                            </g>
+                            <g>
+                                <circle class="icon-happiness" cx="90.1" cy="94.5" r="12.6"></circle>
+                            </g>
+                            <g>
+                                <circle class="icon-happiness" cx="153.9" cy="94.5" r="12.6"></circle>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="icon-label value-text mobile-only">HAPPINESS</div>
+                </div>
+                <div id="happid" class="value" style="background: rgb(1, 182, 173); width: 50%;"></div>
+            </div>
+        </div>
+        <div class="barWrapper meter-loans" data-value="{{loan2}}">
+            <div class="tooltip" style="opacity: 0; top: -61px;">
+                <div class="textWrapper">
+                    <div class="text">Debt:</div>
+                    <div class="text">Every penny you spend now, you'll have to pay back later.</div>
+                </div>
+                <div class="btmTip">
+                    <svg id="tooltip-arrow" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="100%" height="100%" viewBox="0 0 842 349.5">
+                        <polygon class="tooltip-arrow" points="420.5,349.5 842,1.7 842,0 0,0 0,2.6"></polygon>
+                    </svg>
+                </div>
+            </div>
+            <div class="money-tooltip" id="loid" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 0;">
+                <div class="money-value">+$170</div>
+            </div>
+            <div class="bar bar-4">
+                <div style="background:#313d4c" class="loan-value-wrapper">
+                    <div class="icon">
+                        <svg id="icon-debt" style="background: none;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                             width="100%" height="100%" viewBox="0 0 250 490.7">
+                            <g>
+                                <path class="icon-debt1"
+                                      d="M186.5,283.8c-5.7-4.7-12.5-8.6-20.5-11.7c-7.1-2.8-14.7-5.4-22.6-7.9v124.3c8.2-0.8,15.8-2.3,22.9-4.7 c7.8-2.7,14.7-6.6,20.5-11.7c5.8-5.2,10.3-11.7,13.5-19.5c3.2-7.8,4.8-17.1,4.8-27.7c0-9.7-1.7-17.8-5-24.3 C196.7,294,192.2,288.4,186.5,283.8z"></path>
+                                <path class="icon-debt1"
+                                      d="M55.5,155.3c0,8.7,1.4,16.1,4.2,22.3c2.8,6.2,6.8,11.3,12,15.5c5.2,4.2,11.2,7.8,18.2,10.7 c6.4,2.7,13.3,5.2,20.8,7.4V95.1c-15.1,2-27.9,7.6-38.6,17C61.1,121.8,55.5,136.3,55.5,155.3z"></path>
+                                <path class="icon-debt2"
+                                      d="M241.2,280.8c-5.8-11-12.9-20.2-21.2-27.5c-8.3-7.3-17-13.1-26-17.2c-9-4.2-16.8-7.1-23.5-8.7l-27.1-7.2V96.9 c21.6,4.7,36.9,16.6,46,35.5c0.4,1.4,5.2,16.8,6.6,28.1c0,0.1,0,0.1,0,0.2c0,1.4,0.1,2.7,0.4,4c0,0,0,0,0,0c0,1,0.2,1.7,0.6,2.3 c2.7,9,11.1,15.6,21,15.6c12.1,0,21.9-9.8,21.9-21.9c0-2.2-0.3-4.4-1-6.4h0.1c-6.7-29.3-18-52.3-34-69 c-15.4-16.1-36-25.9-61.6-29.6V16.3c0-9-7.3-16.3-16.3-16.3c-9,0-16.3,7.3-16.3,16.3v38.7c-13.5,1.2-26.2,4.2-38.1,9.3 C60.2,69.6,49.4,76.8,40.3,86c-9.2,9.2-16.4,20-21.8,32.5c-5.3,12.5-8,26.2-8,41.2c0,14.7,2,27.2,6,37.5 c4,10.3,10.2,19.1,18.8,26.3c8.5,7.2,19.2,13.3,32,18.5c12.3,5,26.8,9.5,43.6,13.7v132.6c-19-3.5-34.9-11.6-47.6-24.1 c-12-11.9-18.8-27.7-20.4-47.4c2.4-7.5,0.6-16.1-5.4-22c-8.6-8.6-22.4-8.6-31,0c-4.5,4.5-6.6,10.5-6.4,16.4h0c0,0.3,0.1,0.6,0.1,1 c0,0.1,0,0.3,0,0.4c2.9,34.3,14,61.3,33.4,80.9c19.2,19.4,45,30.9,77.3,34.5v46.5c0,9,7.3,16.3,16.3,16.3c9,0,16.3-7.3,16.3-16.3 V428c14.9-1.5,28.6-4.7,41.1-9.7c13.3-5.3,24.8-12.6,34.5-21.8c9.7-9.2,17.3-20.1,22.8-32.7c5.5-12.7,8.2-27.2,8.2-43.5 C250,304.9,247.1,291.8,241.2,280.8z M110.8,211.1c-7.5-2.2-14.5-4.6-20.8-7.4c-7-3-13.1-6.6-18.2-10.7c-5.2-4.2-9.2-9.3-12-15.5 c-2.8-6.2-4.2-13.6-4.2-22.3c0-19,5.6-33.4,16.7-43.2c10.7-9.4,23.5-15,38.6-17V211.1z M200.2,352.5c-3.2,7.8-7.7,14.3-13.5,19.5 c-5.8,5.2-12.7,9.1-20.5,11.7c-7,2.4-14.7,3.9-22.9,4.7V264.1c7.9,2.4,15.5,5,22.6,7.9c8,3.2,14.8,7.1,20.5,11.7 c5.7,4.7,10.2,10.2,13.5,16.7c3.3,6.5,5,14.6,5,24.3C205,335.4,203.4,344.7,200.2,352.5z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="background:#313d4c" id="meter-loan-value" class="value">{{loan2}}</div>
+                </div>
+                <div style="background:#313d4c" class="value-text desktop-only">IN<br>DEBT</div>
+                <div class="value-text mobile-only">IN DEBT</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- -- marks-footer-- end -->
+
+
+<!-- SECOND YEAR   -->
+
+
+<!-- page 1   "opening"  (need to add media queries here :"REMEMBER"  ) ==================== -->
+<div style="padding-top: 200px;padding-bottom: 100px;">
+        
+        <div class="year-text" style="margin-left: 42%;;color: #9e2145;font-size: 2.5rem;line-height: 3.75rem;letter-spacing: .04em;margin-bottom: 50px;">Year 3:</div>
+    <!-- <svg version="1.1" id="Layer_1" style="margin-top: -400px;margin-left:50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="600px" height="600px" viewBox="0 0 530.2 530.2" preserveAspectRatio="xMidYMin slice"><circle class="path" cx="265.1" cy="265.1" r="264.1" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></circle><circle class="line" cx="265.1" cy="265.1" r="264.1"></circle></svg>
+         -->
+         <div  >
+            <img src="{%static 'payback/images/firstyear/images/college-junior.png' %}" style="max-width: 700px;max-height: 700px;margin-left: 24%;" alt="">
+        </div> 
+        <div class="button mascotPlaceholder" style="display: none;">Continue</div>
+        <div class="button mascotBtn" data-direction="down" data-panel="panel-0"
+            style="display: inline-block; opacity: 1;margin-left: 40%;margin-top: 30px;background: #01b6ad;box-shadow:  5px 5px 0;"
+            onclick="document.getElementById('p2').scrollIntoView(); ">Continue
+        </div>
+        
+</div>
+<!-- page 1 end ================== -->
+
+
+<!-- Page 2 ===================================== -->
+<section class="bck-3" id="p2">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">You are 21 now, which means you're eligible to apply for a credit card. What's in your wallet?
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt" >
+                <div  class="opt options" onclick="creditcard(0 , rendloan()); document.getElementById('p3').scrollIntoView();" data-direction="left" data-outcome="222" data-challenge="28">Credit Cards are Scary</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                 -->
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="creditcard(1 , rendloan());document.getElementById('p3').scrollIntoView();" data-direction="down" data-outcome="223" data-challenge="28">Maybe One Card</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt" >
+                <div class="opt options" onclick="creditcard(2 ,rendloan());document.getElementById('p3').scrollIntoView();" data-direction="right" data-outcome="221" data-challenge="28">Give Me All the Cards</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                 -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 2 end ================================ -->
+
+
+<!-- Page 3 ===================================== -->
+<section class="bck-3" id="p3">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">Techniche is around for a week and there are exams at the end of month, but you responsibility for organizing the fest . What would you do? 
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p4').scrollIntoView(); techniche(0)" data-direction="left" data-outcome="222" data-challenge="28">Study for Exam</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p4').scrollIntoView();techniche(1)" data-direction="down" data-outcome="223" data-challenge="28">Help in Organizing <br> the Fest </div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <div class="opt options" onclick="document.getElementById('p4').scrollIntoView();techniche(0)" data-direction="right" data-outcome="221" data-challenge="28">May be Once</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 3 end ================================ -->
+
+<!-- Page 4 ===================================== -->
+<section class="bck-3" id="p4">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">Your school offers the option to move off campus for your last two years. Your friends are getting an apartment and there's a room for you if you want it.
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p5').scrollIntoView();stayinout(0)" data-direction="left" data-outcome="222" data-challenge="28">Move Of Campus</div>
+                <div class="optDebt">₹10000</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p5').scrollIntoView();stayinout(1)" data-direction="down" data-outcome="223" data-challenge="28">Stay In The Dorms</div>
+                <div class="optDebt">₹0</div>
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <!-- <div class="opt options" onclick="document.getElementById('p5').scrollIntoView();clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="221" data-challenge="28">Bring a Car</div>
+                <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 4 end ================================ -->
+
+<!-- Page 5 ===================================== -->
+<section class="bck-3" id="p5">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">While patrolling the dorms, you bust a bunch of freshmen getting drunk. They beg you not to report them.
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p7').scrollIntoView();report(0)" data-direction="left" data-outcome="222" data-challenge="28">Keep It Quiet</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p7').scrollIntoView();report(1)" data-direction="down" data-outcome="223" data-challenge="28">File a Report</div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <!-- <div class="opt options" onclick="document.getElementById('p6').scrollIntoView();clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="221" data-challenge="28">Bring a Car</div>
+                <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 5 end ================================ -->
+
+<!-- Page 6 ===================================== -->
+<!-- <section class="bck-3" id="p6">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background:#9F2046;">Junior year is the best time to study abroad. A semester away will cost about $2500 more than what you’d spend if you stay in the States.
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p7').scrollIntoView();clickOutcome('left', 0, event, this)" data-direction="left" data-outcome="222" data-challenge="28">Stay Put</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p7').scrollIntoView();clickOutcome('down', 1, event, this)" data-direction="down" data-outcome="223" data-challenge="28">Apply for Scholarship</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim svg-anim">
+                    <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+               
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <div class="opt options" onclick="document.getElementById('p7').scrollIntoView();clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="221" data-challenge="28">Use loan</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- Page 6 end ================================ -->
+
+<!-- Page 7 ===================================== -->
+<section class="bck-3" id="p7">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">If you never go off campus, you might lose your mind. How will you get around?
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p8').scrollIntoView();chill(0)" data-direction="left" data-outcome="222" data-challenge="28">Go to park </div>
+                <div class="optDebt">₹200</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p8').scrollIntoView();chill(1)" data-direction="down" data-outcome="223" data-challenge="28">Nearest tourist places</div>
+                <div class="optDebt">₹3500</div>
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <div class="opt options" onclick="document.getElementById('p8').scrollIntoView();chill(2)" data-direction="right" data-outcome="221" data-challenge="28">Trip Other States</div>
+                <div class="optDebt">₹12000</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 7 end ================================ -->
+
+
+
+<!-- Page 8 ===================================== -->
+<!-- <section class="bck-3" id="p8">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">Your Friend Challenged a Puzzle 
+                    </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <div  class="opt options" onclick="document.getElementById('p9').scrollIntoView();clickOutcome('left', 0, event, this)" data-direction="left" data-outcome="222" data-challenge="28">Take the Bus</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="document.getElementById('p9').scrollIntoView();clickOutcome('down', 1, event, this)" data-direction="down" data-outcome="223" data-challenge="28">   <a href="../../kenken/slide_puzzle" style="background: none;">Challenge-Accepted  </a> </div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim svg-anim">
+                    <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+               
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <div class="opt options" onclick="document.getElementById('p9').scrollIntoView();clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="221" data-challenge="28">Bring a Car</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- Page 8 end ================================ -->
+
+
+<!-- Page 9 ===================================== -->
+<section class="bck-3" id="p8">
+    <div id="optthree" class="optHolder" data-template="challenge" style="position:unset">
+        <div class="contentWrap" >
+            <div class="questionWrapper" >
+                <div class="question" >
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">End of the Third Year <br> Time for Exams :) <br> All The Best                </div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt"  >
+                <!-- <div  class="opt options" onclick="clickOutcome('left', 0, event, this)" data-direction="left" data-outcome="222" data-challenge="28">Take the Bus</div>
+                <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="100" y1="1.5" x2="0" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="100" y1="1.5" x2="0" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" id="thirdyearbutton" onclick="" data-direction="down" data-outcome="223" data-challenge="28">    Start The Exam  </div>
+                <!-- <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim svg-anim">
+                    <!-- <svg version="1.1" id="option-anim" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 100" preserveAspectRatio="xMidYMin slice"><line id="straight-down-path" class="path" x1="1.5" y1="0" x2="1.5" y2="100" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line id="straight-down" class="line" x1="1.5" y1="0" x2="1.5" y2="100"></line></svg>
+                -->
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <!-- <div class="opt options" onclick="clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="221" data-challenge="28">Bring a Car</div>
+                <div class="optDebt">$585</div> -->
+                <div class="svg-opt-anim">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 100 3" preserveAspectRatio="xMidYMin slice"><line class="path" x1="0" y1="1.5" x2="100" y2="1.5" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="0" y1="1.5" x2="100" y2="1.5"></line></svg>
+                
+                </div>
+            </div>
+        </div>
+        <!-- <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 3 216" preserveAspectRatio="xMidYMin slice"><line class="path" x1="1.5" y1="0" x2="1.5" y2="216" style="stroke-dashoffset: 1e-05; stroke-dasharray: none;"></line><line class="line" x1="1.5" y1="0" x2="1.5" y2="216"></line></svg>
+            
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Page 9 end ================================ -->
+
+<!-- third year original  -->
+<!-- <section class="bck-3">
+    <div id="optthree" style="position: unset;" class="optHolder" data-template="challenge">
+        <div class="contentWrap">
+            <div class="questionWrapper">
+                <div class="question">
+                    <div class="borderTop"></div>
+                    <div class="borderLeft"></div>
+                    <div class="text label" style="background: #9F2046;">You are 21 now, which means you're eligible to apply for a credit card. What's in your wallet?</div>
+                </div>
+                <div class="borderRight"></div>
+                <div class="borderBottom"></div>
+                <div class="questionShadow"></div>
+            </div>
+            <div class="optionWrap left-opt">
+                <div class="opt options" onclick="clickOutcome('left', 0, event, this)" data-direction="left" data-outcome="452" data-challenge="92">Credit Cards are Scary</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                </div>
+            </div>
+            <div class="optionWrap down-opt">
+                <div class="opt options" onclick="clickOutcome('down', 1, event, this)" data-direction="down" data-outcome="453" data-challenge="92">Maybe One Card</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim svg-anim">
+                </div>
+            </div>
+            <div class="optionWrap right-opt">
+                <div class="opt options" onclick="clickOutcome('right', 2, event, this)" data-direction="right" data-outcome="454" data-challenge="92">Give Me All the Cards</div>
+                <div class="optDebt">$585</div>
+                <div class="svg-opt-anim">
+                </div>
+            </div>
+        </div>
+        <div class="svg-options-anim-1" style="top: 0px; left: 50%; width: 3px; height: 216px; margin-left: -2px;">
+            <div class="svg-down-anim">
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!--   GAME PAGE  -->
+
+
+<!-- END OF Third YEAR ============================== -->
+
+<!-- """""""" Make sure that i will run this function "" end_to_start_ret() ""    """""""""""" -->
+<!-- """"""""  While completing third year    """""""" -->
+
+<!-- END OF Third YEAR    END ============================== -->
+
+
+<div id="f" data-value="{{focus2}}"></div>
+<div id="c" data-value="{{connection2}}"></div>
+<div id="h" data-value="{{happiness2}}"></div>
+<div id="l" data-value="{{loan2}}"></div>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+<!-- shop js here -->
+<script src="{% static 'payback/js/firstyear/shop/templates.js' %}"></script>
+<script src="{% static 'payback/js/firstyear/shop/libraries.js' %}"></script>
+<script src="{% static 'payback/js/firstyear/shop/ap.js' %}"></script>
+
+
+<!-- shop js here -->
+<script>
+    function scroll_exp(){
+        var scrollPosition = [
+        self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+        self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+        ];
+        var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+        html.data('scroll-position', scrollPosition);
+        html.data('previous-overflow', html.css('overflow'));
+        html.css('overflow', 'hidden');
+        window.scrollTo(scrollPosition[0], scrollPosition[1]);  
+        }
+</script>
+
+<script>
+$(window).on("load" , scroll_exp() );
+</script>
+
+<!-- Script of scores taking from Second year  =============================== -->
+
+<script>
+
+// $( window ).on( "load", end_to_start());
+// $( window ).on( "load", nextfunc(x));
+$( window ).on( "load", 
+console.log(1),
+$('#focid').css({"transition" : "width 2s" , "width" : parseInt($("#f")[0].dataset.value)/10+ "%"}),
+$('#conid').css({"transition" : "width 2s" , "width" : parseInt($("#c")[0].dataset.value)/10+ "%"}),
+$('#happid').css({"transition" : "width 2s" , "width" : parseInt($("#h")[0].dataset.value)/10+ "%"}),
+end_to_start(),
+);
+ 
+</script>
+
+<script>
+    $('#thirdyearbutton').on('click', () => {
+        $.ajax({
+            type: "POST",
+            url: "{%url 'thirdyear_submission' %}",
+            data: {
+                'happiness3': document.getElementsByClassName("meter-happiness")[0].attributes[1].value , csrfmiddlewaretoken: '{{ csrf_token }}',
+                'focus3': document.getElementsByClassName("meter-focus")[0].attributes[1].value,
+                'connection3': document.getElementsByClassName("meter-connections")[0].attributes[1].value,
+                'loan3': loan
+
+            },
+            dataType: 'json',
+            success: function (data) {
+                alert("Your response have been submitted");
+            }
+        });
+        window.location.href = "{% url 'crossword' %}"
+    });
+</script>
+<!-- Script of scores taking from Second year  END ==============================  -->
+
+
+
+
+</body>
+
+</html>

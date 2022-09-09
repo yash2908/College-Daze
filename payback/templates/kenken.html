@@ -1,0 +1,409 @@
+{% load static %}
+<!Doctype html>
+<html>
+<head>
+    <title>KenKen</title>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'kenken/js/kenkensolution.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'kenken/css/cells.css' %}">
+    <link rel="stylesheet" href="{% static 'kenken/css/style.css' %}"/>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        input{
+            /* border-radius: 10px; */
+            width: 30px;
+            height: 30px;
+            background-color: rgba(253, 233, 121, 0.897);
+        }
+        .header-right {
+            float: right;
+            color: white;
+            padding-right: 40px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            overflow: hidden;
+            outline: 0;
+        }
+        .modal-content {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: .3rem;
+            outline: 0;
+        }
+        .modal-content {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: .3rem;
+            outline: 0;
+        }
+        .modal-body {
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1rem;
+        }
+        #kenken {
+            background-color: white;}
+    </style>
+</head>
+<body>
+<div class="header">
+  <a class="logo">
+  <img src="https://technothlon.techniche.org.in/images/technothlon.png" class="img-responsive" style="height: 30px; width:125px; margin: auto; margin-top: 0%; margin-bottom: 2.5%">
+  </a>
+  <div>
+    <div class="header-right" id="painting1_final">
+        <a class="active">Rules</a>
+    </div>
+    <div id="painting1_final_modal" class="modal">
+        <div class="modal-content">
+            <span id="painting_close1"  style="cursor: pointer;font-size: 25px;">&times;</span>
+            <div class="modal-body"  >
+               <strong>HOW TO PLAY:-  </strong>    <br> <br>
+
+        <strong> a)  </strong>  Fill these boxes with digits 1-9 such that each row
+        and each column has all 9 digits.  <br>
+
+        <strong> b)   </strong> You should also satisfy the subgrid condition.   <br>  <br>  <br>
+        <strong>
+        Ex:   </strong>   <br> <br>
+        <strong>  ↠   </strong>    <strong>+</strong>16 means all the digits in that subgrid give a total sum of 16  <br>
+        <strong>  ↠   </strong>    <strong>+</strong> Indicates sum,  <br>
+        <strong>  ↠   </strong>    <strong>-</strong> Indicates difference, <strong> [ If -y is above a box then  that box - y = other box in the sun grid ]  </strong> <br>
+        <strong>  ↠   </strong>    <strong>* </strong>Indicates product, <br>
+        <strong>  ↠   </strong>    <strong>/</strong> Indicates quotient,  <strong> [ If /y is above a box then  that box / y = other box in the sun grid ] </strong> <br>
+       <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label> -->
+<!-- <script>
+  var hoursLabel = document.getElementById("hours");
+  var minutesLabel = document.getElementById("minutes");
+  var secondsLabel = document.getElementById("seconds");
+  var totalSeconds = 0;
+  setInterval(setTime, 1000);
+
+  var x = 0;
+
+  function setTime() {
+  ++totalSeconds;
+
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  if (totalSeconds === 3600){
+    x++;
+    totalSeconds = 0 ;
+  }
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  hoursLabel.innerHTML = pad(parseInt(x + (totalSeconds / 3600)));
+  }
+
+  function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+  }
+</script> -->
+
+<div align='center' id='mydiv'>
+    <table id='kenken' style=" border:5 ;  width: 80%;height: 80%;" cellpadding=5>
+        <tbody>
+        <tr>
+            <td id='td11' style="font-size: xx-large;">
+                <!-- <label>2/</label>&nbsp; -->
+                <!-- <input id="11"  maxlength="1">&nbsp;&nbsp;</td> -->
+                3
+            <td id='td12'>
+                <label>x216</label>&nbsp;&nbsp;
+                <input id="12"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td13'>&nbsp;&nbsp;<input id="13" pattern="[12X]" maxlength="1"  >&nbsp;&nbsp;</td>
+            <td id='td14'>&nbsp;&nbsp;<input id="14"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td15'><label>-2</label>&nbsp;&nbsp;<input id="15"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td16'>&nbsp;&nbsp;<input id="16"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td17'><label>x2</label>&nbsp;&nbsp;<input id="17"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td18'>&nbsp;&nbsp;<input id="18"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td19'>&nbsp;&nbsp;<input id="19"  maxlength="1">&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td21'  style="font-size: xx-large;">&nbsp;&nbsp;5</td>
+            <td id='td22'>&nbsp;&nbsp;<input id="22"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td23'>&nbsp;&nbsp;<input id="23"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td24'>&nbsp;&nbsp;<input id="24"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td25'><label>+31</label>&nbsp;&nbsp;<input id="25"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td26'>&nbsp;&nbsp;<input id="26"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td27'>&nbsp;&nbsp;<input id="27"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td28'><label>x96</label>&nbsp;&nbsp;<input id="28"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td29'>&nbsp;&nbsp;<input id="29"  maxlength="1">&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td31'><label>x252</label>&nbsp;&nbsp;<input id="31"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td32'>&nbsp;&nbsp;<input id="32"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td33'><label>+30</label>&nbsp;&nbsp;<input id="33"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td34'>&nbsp;&nbsp;<input id="34"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td35'>&nbsp;&nbsp;<input id="35"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td36'>&nbsp;&nbsp;<input id="36"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td37'> <label>x60</label> &nbsp;&nbsp;<input id="37"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td38'>&nbsp;&nbsp;<input id="38"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td39'  style="font-size: xx-large;">&nbsp;&nbsp;2</td>
+        </tr>
+        <tr>
+
+            <td id='td41'><label>x280</label>&nbsp;&nbsp;<input id="41"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td42'>&nbsp;&nbsp;<input id="42"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td43'>&nbsp;&nbsp;<input id="43"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td44'>&nbsp;&nbsp;<input id="44"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td45'  style="font-size: xx-large;">5&nbsp;&nbsp;</td>
+            <td id='td46'>&nbsp;&nbsp;<input id="46"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td47'>&nbsp;&nbsp;<input id="47"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td48'> <label>+23</label> &nbsp;&nbsp;<input id="48"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td49'>&nbsp;&nbsp;<input id="49"  maxlength="1">&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td51'>&nbsp;&nbsp;<input id="51"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td52'>&nbsp;&nbsp;<input id="52"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td53'> <label>x1152</label>  &nbsp;&nbsp;<input id="53"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td54'>&nbsp;&nbsp;<input id="54"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td55'>&nbsp;&nbsp;<input id="55"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td56'><label>x216</label>&nbsp;&nbsp;<input id="56"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td57'>&nbsp;&nbsp;<input id="57"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td58'>&nbsp;&nbsp;<input id="58"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td59'  style="font-size: xx-large;">7&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td61'>&nbsp;&nbsp;<input id="61"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td62'>&nbsp;&nbsp;<input id="62"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td63'>&nbsp;&nbsp;<input id="63"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td64'><label>+6</label>&nbsp;&nbsp;<input id="64"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td65'>&nbsp;&nbsp;<input id="65"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td66'>&nbsp;&nbsp;<input id="66"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td67'><label>x216</label>&nbsp;&nbsp;<input id="67"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td68'>  &nbsp;&nbsp;<input id="68"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td69'><label>-1</label>&nbsp;&nbsp;<input id="69"  maxlength="1">&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td71'>&nbsp;&nbsp;<input id="71"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td72'><label>/2</label>&nbsp;&nbsp;<input id="72"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td73'><label>+14</label>&nbsp;&nbsp;<input id="73"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td74'>&nbsp;&nbsp;<input id="74"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td75'>&nbsp;&nbsp;<input id="75"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td76'>&nbsp;&nbsp;<input id="76"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td77'>&nbsp;&nbsp;<input id="77"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td78'>&nbsp;&nbsp;<input id="78"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td79' style="font-size: x-large;">&nbsp;&nbsp;1&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td81'> <label>x48</label> &nbsp;&nbsp;<input id="81"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td82'>&nbsp;&nbsp;<input id="82"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td83'> <label>x18</label> &nbsp;&nbsp;<input id="83"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td84'>&nbsp;&nbsp;<input id="84"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td85'> <label>x336</label> &nbsp;&nbsp;<input id="85"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td86'>&nbsp;&nbsp;<input id="86"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td87'><label>+21</label>&nbsp;&nbsp;<input id="87"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td88'>&nbsp;&nbsp;<input id="88"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td89'>&nbsp;&nbsp;<input id="89"  maxlength="1">&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+
+            <td id='td91'><label>+19</label>&nbsp;&nbsp;<input id="91"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td92'>&nbsp;&nbsp;<input id="92"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td93'>&nbsp;&nbsp;<input id="93"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td94'>&nbsp;&nbsp;<input id="94"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td95'>&nbsp;&nbsp;<input id="95"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td96' style="font-size: xx-large;">2&nbsp;&nbsp;</td>
+            <td id='td97' style="font-size: xx-large;">&nbsp;&nbsp;<input id="97"  maxlength="1">&nbsp;&nbsp;</td>
+            <td id='td98' style="font-size: xx-large;">5 &nbsp;&nbsp;</td>
+            <td id='td99' style="font-size: xx-large;">6&nbsp;&nbsp;</td>
+        </tr>
+        <script>
+
+            // document.getElementById("myText").disabled = true;
+
+
+        </script>
+        </tbody>
+    </table>
+</div>
+
+<p id="demo" align='center'></p>
+<button align='center' style="display: none;" onclick="checker()">solution</button>
+<!--<div id="instructions">
+    <p id="title">HOW TO PLAY</p>
+    <p>
+        a)fill these boxes with digits 1-9 such that each row
+        and each column has all 9 digits.
+    </p>
+    <p> b)you should also satisfy the subgrid condition.
+        Ex:+16 means all the digits in that subgrid give a total sum of 16
+        + Indicates sum, - indicates difference, * indicates product, / indicates quotient, % indicates modulus--means
+        reminder when one of the digit is divided by other digit.
+    </p>
+    
+</div>-->
+<!-- <input id="skip" type="button" value="Skip" onclick="redirect1();"/> -->
+
+
+<script type="text/javascript">
+    function redirect1()
+    {
+        window.location = "{% url 'secondyear' %}";
+    }
+
+</script>
+
+<script type="text/javascript">
+    function redirect2() {
+        window.location = "{% url 'secondyear' %}";
+    }
+
+</script>
+
+
+  <!-- <button  onclick="kenken_data()" >save</button> -->
+<button id="submit"><a href="{% url 'secondyear' %}">Submit</a></button>
+<button id="skip"><a href="{% url 'secondyear' %}">Skip</a></button>
+
+<script>
+    var modal1 = document.getElementById("painting1_final_modal");
+    var img1 = document.getElementById("painting1_final");
+    // var span1 = document.getElementsByClassName("close")[0];
+    img1.onclick = function () {
+        modal1.style.display = "block";
+
+    }
+    $('#painting_close1').on('click', () => {
+        modal1.style.display = "none";
+    });
+</script>
+
+
+
+<script>
+
+
+    function kenken_data() {
+        var kenken_array = new Array(200);
+        // for (var i = 0; i < 81; i++) {
+        //     kenken_array[i] = 0;
+        // }
+
+        for (var i = 0; i < 200; i++) {
+            try {
+                if ((document.getElementById(""+ (11 +i) + "").value) === ""){
+                    kenken_array[i] = 0;
+                }
+                else{
+                    kenken_array[i] = parseInt(document.getElementById(""+ (11 +i) + "").value);
+                }
+            }
+            catch(err) {
+                kenken_array[i] = 0;
+            }
+        }
+        console.log(kenken_array)
+        return kenken_array;
+    }
+
+
+
+$('#submit').on('click', () => {
+    // let total_square = $('#puzzle').find('.square').length;
+    // console.log($('#puzzle').find('.square').eq(1).text());
+    // for (let i = 0; i < 15; i++) }
+    //     submittedCrossword[i] = new Array(15);
+    // var k = 0;
+    // for (let i = 0; i < 15; i++) }
+    //     for (let j = 0; j < 15; j++) }
+    //         submittedCrossword[i][j] = $('#puzzle').find('.square').eq(k).text();
+    //         k++;
+    //     }
+    // console.log(submittedCrossword);
+
+
+
+    $.ajax({
+        type: "POST",
+        url: "{%url 'kenken_submission' %}",
+        data: {
+            'kenken_solver': JSON.stringify(kenken_data()),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        dataType: 'json',
+        success: function (data) {
+            alert("Your response have been submitted");
+        }
+    });
+});
+
+</script>
+<footer>
+
+  <p>Technothlon<br>
+  Copyright &copy 2019-20
+<br>All rights reserved.</p>
+
+</footer>
+
+
+</body>
+
+</html>

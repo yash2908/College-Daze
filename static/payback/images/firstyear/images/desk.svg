@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <title>desk</title>
+  <g>
+    <g>
+      <path d="M342,127.8H60a2.9,2.9,0,0,0-2.9,2.9V318.3a2.9,2.9,0,0,0,5.8,0V291.2h97.2v27.1a2.9,2.9,0,0,0,5.8,0V183.5H339.1V318.3a2.9,2.9,0,0,0,5.8,0V130.6A2.88,2.88,0,0,0,342,127.8ZM62.9,133.5H339.1v44.1H62.9Zm0,103.8h97.2v48.1H62.9Zm97.2-5.8H62.9V183.4h97.2Z" fill="#303d4c"/>
+      <rect x="179" y="153" width="42.4" height="5.6" fill="#303d4c"/>
+      <rect x="90" y="204.9" width="42.4" height="5.6" fill="#303d4c"/>
+      <rect x="90" y="258.7" width="42.4" height="5.6" fill="#303d4c"/>
+    </g>
+    <rect width="400" height="400" fill="none"/>
+  </g>
+</svg>
