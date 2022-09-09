@@ -19,7 +19,7 @@ We used JavaScript, along with basic HTML and CSS, for the front-end and Django 
 
 
 ## Contributors
-This game was developed by [Shridam Mahajan](https://github.com/shridam1207),  [Abhay Kandhve](https://github.com/KANDHVE950) ,[Tushar Bajaj](https://github.com/bajajtushar094), [Sushant Reddy Manda](https://github.com/SushanthReddyManda), [Shrusti Jain](https://github.com/debug-shush),
+This game was developed by [Yash Kumawat](https://github.com/yash2908),  [Durgansh Mishra](https://github.com/durganshmishra333)
 <br> 
  
   -->
@@ -119,5 +119,5 @@ In order to install all packages follow the steps below:
 
 -------
 ## Developers
-This game was developed by [Shridam Mahajan](https://github.com/shridam1207),  [Abhay Kandhve](https://github.com/KANDHVE950) ,[Tushar Bajaj](https://github.com/bajajtushar094), [Sushant Reddy Manda](https://github.com/SushanthReddyManda), [Shrusti Jain](https://github.com/debug-shush),
+This game was developed by [Yash Kumawat](https://github.com/yash2908),  [Durgansh Mishra](https://github.com/durganshmishra333) ,
 
